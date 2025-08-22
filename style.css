@@ -612,3 +612,42 @@ html[data-theme="dark"] .hero {
 /* BEGIN: icon-gap */
 .btn svg.icon, .btn .icon-img { margin-right: 6px; }
 /* END: icon-gap */
+
+/* BEGIN: sticky-navbar */
+header, .navbar, .site-header { /* 任选其一覆盖到你的导航容器 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.88);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--border, #eee);
+  transition: box-shadow .2s ease;
+}
+
+/* 滚动时加阴影（由 JS 切 class） */
+body.is-scrolled header,
+body.is-scrolled .navbar,
+body.is-scrolled .site-header {
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* 预订按钮在顶栏里依然明显 */
+.navbar .btn-reserve { 
+  background: #FF5A5F; color: #fff !important; 
+  padding: 8px 14px; border-radius: 20px; font-weight: 700;
+}
+
+/* 移动端菜单里的预订按钮更醒目 */
+@media (max-width: 991px){
+  .navbar-collapse .btn-reserve{
+    display:block;width:100%;text-align:center;margin:10px 0;padding:10px;font-size:16px;
+  }
+  /* 提高普通链接的可点性 */
+  .navbar-nav .nav-link{display:block;padding:12px 20px;font-size:16px;}
+  .navbar-nav .nav-link:hover{background:#f8f9fa;border-radius:5px;}
+}
+
+/* 锚点滚动时避免被吸顶导航遮住 */
+:target { scroll-margin-top: 80px; }
+/* END: sticky-navbar */

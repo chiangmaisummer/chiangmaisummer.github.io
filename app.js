@@ -430,3 +430,19 @@
     });
   });
 })();
+
+// sticky navbar shadow on scroll
+(function(){
+  var ticking=false;
+  function onScroll(){
+    if(!ticking){
+      window.requestAnimationFrame(function(){
+        document.body.classList.toggle('is-scrolled', window.scrollY > 4);
+        ticking=false;
+      });
+      ticking=true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll(); // 初始执行一次
+})();
