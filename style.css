@@ -604,3 +604,7 @@ html[data-theme="dark"] .hero {
 .social-wa { color:#25D366; }
 .social-line { color:#06C755; }
 /* END: social-grid-styles */
+
+/* BEGIN: local-icon-img */
+.icon-img { width:20px; height:20px; vertical-align:-3px; }
+/* END: local-icon-img */
