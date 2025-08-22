@@ -220,3 +220,90 @@
     }
   });
 })();
+
+// ===== Inject Search icon in header =====
+(function(){
+  const headerRight = document.querySelector('.header-right');
+  if (!headerRight || headerRight.querySelector('.search-icon')) return;
+  const a = document.createElement('a');
+  a.className='icon-btn search-icon';
+  a.href='search.html';
+  a.setAttribute('aria-label','Search');
+  a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>';
+  headerRight.appendChild(a);
+})();
+
+// ===== Inject Feedback button in nav (optional) =====
+(function(){
+  const nav = document.querySelector('.nav-links');
+  if (!nav || nav.querySelector('.nav-feedback')) return;
+  const a = document.createElement('a');
+  a.className='nav-feedback';
+  a.href = (location.pathname.endsWith('-zh.html') ? 'feedback-zh.html' : 'feedback.html');
+  a.textContent = (location.pathname.endsWith('-zh.html') ? '留言' : 'Feedback');
+  nav.appendChild(a);
+})();
+
+// ===== Privacy-friendly analytics injector =====
+(function(){
+  try {
+    const cfg = window.ANALYTICS || {};
+    const dnt = (navigator.doNotTrack == "1" || window.doNotTrack == "1" || navigator.msDoNotTrack == "1");
+    const hostOk = !cfg.hosts || cfg.hosts.includes(location.hostname);
+    if ((cfg.respectDNT && dnt) || !hostOk) return;
+
+    function add(src, attrs={}) {
+      const s = document.createElement('script');
+      s.src = src; s.defer = true;
+      Object.entries(attrs).forEach(([k,v])=>s.setAttribute(k, v));
+      document.head.appendChild(s);
+    }
+
+    if (cfg.provider === "umami" && cfg.umami && cfg.umami.enabled) {
+      add(cfg.umami.src, {"data-website-id": cfg.umami.websiteId});
+    } else if (cfg.provider === "plausible" && cfg.plausible && cfg.plausible.enabled) {
+      add(cfg.plausible.src, {"data-domain": cfg.plausible.domain});
+    } else {
+      // not configured; stay silent
+      if (console && console.info) console.info("[analytics] disabled (no provider configured)");
+    }
+  } catch(e) { /* ignore */ }
+})();
+
+// ===== Language auto-redirect (first visit to home only) =====
+(function(){
+  try {
+    const path = location.pathname.replace(/\/+$/,'/');
+    const isHome = (path === "/" || path.endsWith("/index.html"));
+    if (!isHome) return;
+
+    const params = new URLSearchParams(location.search);
+    const urlLang = params.get("lang"); // ?lang=en/zh
+    const saved = localStorage.getItem("lang_choice");
+    if (urlLang) {
+      localStorage.setItem("lang_choice", urlLang);
+      if (urlLang === "zh" && !location.pathname.endsWith("index-zh.html")) {
+        location.replace("index-zh.html");
+      } else if (urlLang === "en" && !location.pathname.endsWith("index.html")) {
+        location.replace("index.html");
+      }
+      return;
+    }
+    if (saved) return; // user has chosen
+
+    const navLang = (navigator.language || navigator.userLanguage || "").toLowerCase();
+    const preferZh = navLang.startsWith("zh");
+    if (preferZh && !location.pathname.endsWith("index-zh.html")) {
+      // first-time redirect to Chinese
+      location.replace("index-zh.html");
+    }
+  } catch(e) { /* ignore */ }
+})();
+
+// Remember user choice when clicking lang switch
+(function(){
+  const en = document.getElementById('lang-en');
+  const zh = document.getElementById('lang-zh');
+  if (en) en.addEventListener('click', ()=>localStorage.setItem('lang_choice','en'));
+  if (zh) zh.addEventListener('click', ()=>localStorage.setItem('lang_choice','zh'));
+})();

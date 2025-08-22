@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>留言 · 清迈夏天</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .form-wrap{max-width:720px;margin:24px auto;padding:0 12px}
+    form{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--elev);padding:16px}
+    label{display:block;margin:10px 0 6px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+    .hint{color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">留言</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="切换导航" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="主导航">
+          <a href="index-zh.html">首页</a>
+          <a href="about-zh.html">关于</a>
+          <a href="blog-zh.html">博客</a>
+          <a href="contact-zh.html">联系</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="语言">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <a class="icon-btn" href="qr-zh.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container form-wrap">
+  <p class="hint">本页通过 Formspree 把留言发送到邮箱。把 <code>FORM_ENDPOINT</code> 换成你的端点即可。</p>
+  <form id="fb" novalidate>
+    <label>称呼</label>
+    <input name="name" required placeholder="您的称呼"/>
+    <label>邮箱</label>
+    <input type="email" name="email" required placeholder="you@example.com"/>
+    <label>留言</label>
+    <textarea name="message" rows="6" required placeholder="想说的话…"></textarea>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn primary" type="submit">发送</button>
+      <a class="btn" href="mailto:chiangmaisummer@gmail.com">改用邮箱</a>
+    </div>
+    <div id="fb-status" class="hint" style="margin-top:8px;"></div>
+  </form>
+</main>
+
+<footer><div class="container">&copy; 2025 清迈夏天</div></footer>
+
+<script>
+const FORM_ENDPOINT = "https://formspree.io/f/REPLACE_ME";
+document.getElementById('fb').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const form = e.currentTarget;
+  const status = document.getElementById('fb-status');
+  const data = Object.fromEntries(new FormData(form).entries());
+  if(!FORM_ENDPOINT.includes('REPLACE_ME')){
+    try{
+      const res = await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      if(res.ok){ status.textContent='已发送，谢谢！'; form.reset(); }
+      else { status.textContent='发送失败，请改用邮箱。'; }
+    }catch(err){ status.textContent='网络错误，请改用邮箱。'; }
+  }else{
+    status.textContent='端点未设置，正在打开邮箱…';
+    location.href=`mailto:chiangmaisummer@gmail.com?subject=%E7%BD%91%E7%AB%99%E7%95%99%E8%A8%80&body=${encodeURIComponent(data.message||'')}`;
+  }
+});
+</script>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

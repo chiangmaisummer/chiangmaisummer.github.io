@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback · Chiang Mai Summer</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .form-wrap{max-width:720px;margin:24px auto;padding:0 12px}
+    form{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--elev);padding:16px}
+    label{display:block;margin:10px 0 6px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+    .hint{color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">Feedback</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <a class="icon-btn" href="qr.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container form-wrap">
+  <p class="hint">This form sends to email via Formspree. Replace <code>FORM_ENDPOINT</code> with your own.</p>
+  <form id="fb" novalidate>
+    <label>Name</label>
+    <input name="name" required placeholder="Your name"/>
+    <label>Email</label>
+    <input type="email" name="email" required placeholder="you@example.com"/>
+    <label>Message</label>
+    <textarea name="message" rows="6" required placeholder="Say hello…"></textarea>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn primary" type="submit">Send</button>
+      <a class="btn" href="mailto:chiangmaisummer@gmail.com">Email instead</a>
+    </div>
+    <div id="fb-status" class="hint" style="margin-top:8px;"></div>
+  </form>
+</main>
+
+<footer><div class="container">&copy; 2025 Chiang Mai Summer</div></footer>
+
+<script>
+const FORM_ENDPOINT = "https://formspree.io/f/REPLACE_ME";
+document.getElementById('fb').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const form = e.currentTarget;
+  const status = document.getElementById('fb-status');
+  const data = Object.fromEntries(new FormData(form).entries());
+  if(!FORM_ENDPOINT.includes('REPLACE_ME')){
+    try{
+      const res = await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      if(res.ok){ status.textContent='Thanks! Your message was sent.'; form.reset(); }
+      else { status.textContent='Failed to send. Please try Email.'; }
+    }catch(err){ status.textContent='Network error. Try Email.'; }
+  }else{
+    status.textContent='Endpoint not set. Opening your mail app…';
+    location.href=`mailto:chiangmaisummer@gmail.com?subject=Website%20Feedback&body=${encodeURIComponent(data.message||'')}`;
+  }
+});
+</script>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>

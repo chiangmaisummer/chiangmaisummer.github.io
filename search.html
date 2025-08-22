@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search · Chiang Mai Summer</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .search-wrap{max-width:900px;margin:24px auto;padding:0 12px}
+    .search-bar{display:flex;gap:8px;margin:12px 0 18px}
+    .search-bar input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+    .result{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--elev);padding:14px;margin:10px 0}
+    .result a{font-weight:700}
+    mark{background:#fff3b0}
+    .hint{color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">Search</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <a class="icon-btn" href="qr.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container search-wrap">
+  <div class="search-bar">
+    <input id="q" type="search" placeholder="Search… / 搜索…" autofocus aria-label="Search"/>
+    <a class="btn" id="clearBtn" href="#">Clear</a>
+  </div>
+  <div id="hint" class="hint">Tip: try “map”, “contact”, “vCard”，或“地图”、“打车备注”。</div>
+  <div id="results"></div>
+</main>
+
+<footer><div class="container">&copy; 2025 Chiang Mai Summer</div></footer>
+
+<script src="app.js"></script>
+<script>
+(async function(){
+  const isZh = location.pathname.endsWith('-zh.html'); // 仅用于语言切换按钮
+  const data = await fetch('search-index.json',{cache:'no-store'}).then(r=>r.json()).catch(()=>[]);
+  const qEl = document.getElementById('q');
+  const out = document.getElementById('results');
+  const hint = document.getElementById('hint');
+
+  function norm(s){return (s||'').toLowerCase()}
+  function matchScore(item, q){
+    let s = 0;
+    const nq = norm(q);
+    if (norm(item.title).includes(nq)) s+=3;
+    if (norm(item.desc).includes(nq)) s+=2;
+    if (norm(item.lang)===('zh') && /[\u4e00-\u9fa5]/.test(q)) s+=1;
+    if (norm(item.lang)===('en') && !/[\u4e00-\u9fa5]/.test(q)) s+=1;
+    return s;
+  }
+  function hi(text, q){
+    if(!q) return text;
+    const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    return text.replace(new RegExp(esc,'ig'),m=>`<mark>${m}</mark>`);
+  }
+  function render(q){
+    out.innerHTML = '';
+    const qq = q.trim();
+    if(!qq){ hint.style.display='block'; return; }
+    hint.style.display='none';
+    const results = data
+      .map(item=>({item,score:matchScore(item,qq)}))
+      .filter(r=>r.score>0)
+      .sort((a,b)=>b.score-a.score);
+    if(!results.length){ out.innerHTML='<p class="hint">No results / 暂无结果</p>'; return; }
+    results.forEach(({item})=>{
+      const div = document.createElement('div');
+      div.className='result reveal';
+      div.innerHTML = `
+        <a class="link" href="${item.url}">${hi(item.title,qq)}</a>
+        <div class="hint">${hi(item.desc,qq)}</div>
+      `;
+      out.appendChild(div);
+    });
+  }
+  qEl.addEventListener('input', ()=>render(qEl.value));
+  document.getElementById('clearBtn').addEventListener('click', e=>{e.preventDefault(); qEl.value=''; render(''); qEl.focus();});
+
+  // 初始根据 URL ?q= 预填
+  const params = new URLSearchParams(location.search);
+  const initQ = params.get('q') || '';
+  if(initQ){ qEl.value = initQ; render(initQ); }
+})();
+</script>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Poster · Chiang Mai Summer</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .wrap{max-width:900px;margin:20px auto;text-align:center}
+    canvas{max-width:100%;background:#fff;border-radius:12px;box-shadow:0 2px 14px rgba(0,0,0,.08)}
+    .btn-row{margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+    @media print {.btn-row{display:none}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">QR Poster</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+          <a href="qr.html">QR</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <a class="icon-btn" href="qr.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container wrap">
+  <canvas id="poster" width="1200" height="1700" aria-label="QR Poster"></canvas>
+  <div class="btn-row">
+    <a class="btn primary" href="#" id="btn-print">Print</a>
+    <a class="btn" href="#" id="btn-download">Download PNG</a>
+  </div>
+  <p class="hint" style="color:var(--muted)">Contains two QRs: Map and vCard. Prints on A3/A4 nicely.</p>
+</main>
+
+<footer><div class="container">&copy; 2025 Chiang Mai Summer</div></footer>
+
+<script src="qrcode.min.js"></script>
+<script src="app.js"></script>
+<script>
+(function(){
+  const MAP_URL = 'https://chiangmaisummer.github.io/map';
+  const VCF_URL = 'https://chiangmaisummer.github.io/chiangmai-summer.vcf';
+  const title = 'Chiang Mai Summer';
+  const addr  = '4/1 Prapokklao Rd. Soi 6, Old City, Chiang Mai 50200';
+  const gps   = 'GPS 18.784389, 98.989616';
+
+  const c = document.getElementById('poster');
+  const ctx = c.getContext('2d');
+
+  // 背景
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0,0,c.width,c.height);
+
+  // 顶部标题
+  ctx.fillStyle = '#0b1220';
+  ctx.font = 'bold 72px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(title, c.width/2, 150);
+
+  // 地址文字
+  ctx.font = '32px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
+  ctx.fillStyle = '#333';
+  ctx.fillText(addr, c.width/2, 230);
+  ctx.fillStyle = '#555';
+  ctx.fillText(gps, c.width/2, 280);
+
+  // 生成两个二维码到离屏 canvas
+  function makeQR(url, size){
+    const div = document.createElement('div');
+    const q = new QRCode(div, {width:size,height:size});
+    q.makeCode(url);
+    const cvs = div.querySelector('canvas');
+    // 某些实现第一次需要延时，但本库同步生成，直接用
+    return cvs;
+  }
+  const qSize = 640;
+  const qrMap = makeQR(MAP_URL, qSize);
+  const qrVcf = makeQR(VCF_URL, qSize);
+
+  // 把二维码绘制到主画布
+  const left = 140, right = c.width - qSize - 140, top = 380;
+  ctx.drawImage(qrMap, left, top);
+  ctx.drawImage(qrVcf, right, top);
+
+  // 下方说明
+  ctx.fillStyle = '#0b1220';
+  ctx.font = 'bold 40px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
+  ctx.fillText('Map', left + qSize/2, top + qSize + 60);
+  ctx.fillText('vCard', right + qSize/2, top + qSize + 60);
+
+  // 页脚
+  ctx.fillStyle = '#666';
+  ctx.font = '28px system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
+  ctx.fillText('Scan to navigate or save contact', c.width/2, c.height - 80);
+
+  // 下载与打印
+  document.getElementById('btn-download').addEventListener('click', e=>{
+    e.preventDefault();
+    const url = c.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url; a.download = 'chiangmai-summer-qr-poster.png';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  document.getElementById('btn-print').addEventListener('click', e=>{
+    e.preventDefault(); window.print();
+  });
+})();
+</script>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
