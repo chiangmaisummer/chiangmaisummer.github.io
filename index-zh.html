@@ -75,7 +75,7 @@
   <p><a href="https://weibo.com/u/2435446094" target="_blank" rel="noopener">新浪微博: 清迈夏天</a></p>
   <p data-footer-social style="margin-top:6px;">
     <a href="https://www.facebook.com/chiangmaisummer" target="_blank" rel="noopener" style="margin-right:12px;color:#1877F2;text-decoration:none;">📘 Facebook</a>
-    <a href="#" data-copy="13911700030" style="color:#07C160;text-decoration:none;">💬 微信：13911700030（点此复制）</a>
+    <a href="#" data-copy="" style="color:#07C160;text-decoration:none;">💬 微信：（点此复制）</a>
   </p>
   
   <p data-footer-social-copy style="margin-top:6px;text-align:center;"><a href="https://www.facebook.com/chiangmaisummer" target="_blank" rel="noopener" style="margin:0 8px;text-decoration:none;">
@@ -119,5 +119,60 @@
     </a></p>
 </footer>
   <script src="app.js"></script>
+<!-- BEGIN: booking-cta-ULTIMATE-INDEX -->
+<style>
+/* 终极兜底：index-zh 预订按钮高对比可见 */
+:where(html body main, html body) a[href*="booking.com"],
+:where(html body main, html body) a[href*="airbnb.cn"],
+:where(html body main, html body) a[href*="airbnb.com"] {
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  padding:10px 14px !important;
+  border-radius:10px !important;
+  font-weight:700 !important;
+  text-decoration:none !important;
+  color:#ffffff !important;
+  border:1px solid transparent !important;
+  box-shadow:0 6px 16px rgba(0,0,0,.12) !important;
+  opacity:1 !important; visibility:visible !important;
+  mix-blend-mode:normal !important; filter:none !important; background-image:none !important;
+}
+:where(html body main, html body) a[href*="booking.com"] { background:#003580 !important; border-color:#002a63 !important; }
+:where(html body main, html body) a[href*="airbnb.cn"],
+:where(html body main, html body) a[href*="airbnb.com"] { background:#FF5A5F !important; border-color:#d9484d !important; }
+/* 内联 SVG 颜色随文字 */
+:where(html body main, html body) a[href*="booking.com"] svg *,
+:where(html body main, html body) a[href*="airbnb.cn"] svg *,
+:where(html body main, html body) a[href*="airbnb.com"] svg * { fill:currentColor !important; stroke:currentColor !important; }
+</style>
+<script>
+/* 再兜一层：行内 !important（最高优先级） */
+(function(){
+  var propsBooking = {
+    background: '#003580', color: '#fff', borderColor: '#002a63',
+    display: 'inline-flex', padding: '10px 14px', borderRadius: '10px',
+    fontWeight: '700', boxShadow: '0 6px 16px rgba(0,0,0,.12)',
+    opacity: '1', visibility: 'visible', mixBlendMode: 'normal', filter: 'none'
+  };
+  var propsAirbnb = {
+    background: '#FF5A5F', color: '#fff', borderColor: '#d9484d',
+    display: 'inline-flex', padding: '10px 14px', borderRadius: '10px',
+    fontWeight: '700', boxShadow: '0 6px 16px rgba(0,0,0,.12)',
+    opacity: '1', visibility: 'visible', mixBlendMode: 'normal', filter: 'none'
+  };
+  function apply(el, props){
+    for (var k in props){
+      el.style.setProperty(k.replace(/[A-Z]/g, m => '-'+m.toLowerCase()), props[k], 'important');
+    }
+  }
+  function run(){
+    document.querySelectorAll('a[href*="booking.com"]').forEach(el => apply(el, propsBooking));
+    document.querySelectorAll('a[href*="airbnb.cn"], a[href*="airbnb.com"]').forEach(el => apply(el, propsAirbnb));
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
+<!-- END: booking-cta-ULTIMATE-INDEX -->
 </body>
 </html>

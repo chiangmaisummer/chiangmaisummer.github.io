@@ -446,3 +446,18 @@
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll(); // 初始执行一次
 })();
+// BEGIN: auto-apply pulse-cta to primary booking buttons
+(function(){
+  function pickAndPulse(selector, max=1){
+    const all = Array.from(document.querySelectorAll(selector))
+      .filter(el => !el.classList.contains('pulse-cta') && !el.hasAttribute('data-no-pulse'));
+    let count = 0;
+    for(const el of all){
+      el.classList.add('pulse-cta');
+      if(++count >= max) break;
+    }
+  }
+  pickAndPulse('a.btn-reserve, header .btn-booking, .hero .btn-booking, #booking-buttons .btn-booking, #brand-booking-shortcuts .btn-booking, a[href*="booking.com"]', 1);
+  pickAndPulse('header .btn-airbnb, .hero .btn-airbnb, #booking-buttons .btn-airbnb, #brand-booking-shortcuts .btn-airbnb, a[href*="airbnb.cn"], a[href*="airbnb.com"]', 1);
+})();
+// END: auto-apply pulse-cta
