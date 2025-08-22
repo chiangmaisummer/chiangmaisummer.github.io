@@ -1,17 +1,17 @@
 (function () {
+  // ====== 导航开关、语言切换、高亮当前页（保留你现有逻辑） ======
   const btn = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.nav-links');
   const langEn = document.getElementById('lang-en');
   const langZh = document.getElementById('lang-zh');
 
-  // 移动端菜单开关
   if (btn && nav) {
     btn.addEventListener('click', () => {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!expanded));
       nav.classList.toggle('open');
     });
-    nav.querySelectorAll('a').forEach(a => {
+    nav?.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         if (nav.classList.contains('open')) {
           nav.classList.remove('open');
@@ -21,19 +21,16 @@
     });
   }
 
-  // 当前页面文件名（根路径视为 index.html）
   const path = window.location.pathname;
   let file = path.split('/').pop() || 'index.html';
   const baseFile = file.replace('-zh', '');
 
-  // 高亮当前导航项
   document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href') || '';
     const hrefBase = href.replace('-zh', '');
     if (hrefBase === baseFile) a.classList.add('active');
   });
 
-  // 语言切换
   const isZh = file.endsWith('-zh.html');
   if (langEn && langZh) {
     langEn.href = baseFile;
@@ -41,7 +38,7 @@
     (isZh ? langZh : langEn).classList.add('active');
   }
 
-  // ===== 复制逻辑（含“复制全部”与 ✓ 状态）=====
+  // ====== 复制逻辑（含“复制全部”与 ✓ 状态、toast） ======
   const toast = createToast();
 
   document.querySelectorAll('[data-copy]').forEach(el => {
@@ -78,7 +75,6 @@
       document.body.removeChild(ta);
     }
   }
-
   function feedback(button, toastMsg, originalLabel) {
     showToast(toastMsg);
     button.classList.add('copied');
@@ -89,14 +85,9 @@
       button.textContent = originalLabel;
     }, 1600);
   }
-
   function createToast() {
     let t = document.querySelector('.toast');
-    if (!t) {
-      t = document.createElement('div');
-      t.className = 'toast';
-      document.body.appendChild(t);
-    }
+    if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
     return t;
   }
   let toastTimer = null;
@@ -108,53 +99,76 @@
     toastTimer = setTimeout(() => node.classList.remove('show'), 1600);
   }
 
-  // ===== 本地化地图按钮：Apple Maps / Baidu Maps =====
+  // ====== 本地化地图按钮（Apple/Baidu） ======
   const LAT = 18.784389, LNG = 98.989616;
   const placeEN = 'Chiang Mai Summer';
   const placeZH = '清迈夏天';
-
   const ua = navigator.userAgent.toLowerCase();
   const isiOS = /iphone|ipad|ipod/.test(ua);
   const isMac = /macintosh|mac os x/.test(ua);
-
-  // Apple Maps 链接（优先 scheme，fallback 到 https）
   const appleScheme = `maps://?q=${encodeURIComponent(placeEN)}&ll=${LAT},${LNG}`;
   const appleHttp   = `https://maps.apple.com/?q=${encodeURIComponent(placeEN)}&ll=${LAT},${LNG}`;
-
-  // 百度地图（支持 wgs84）
   const baiduUrl = `https://api.map.baidu.com/marker?location=${LAT},${LNG}&title=${encodeURIComponent(isZh?placeZH:placeEN)}&content=${encodeURIComponent('Prapokklao Soi 6')}&output=html&coord_type=wgs84`;
 
-  // 英文页按钮
   const btnAppleEn = document.getElementById('btn-apple-en');
-  if (btnAppleEn) {
-    if (isiOS || isMac) {
-      btnAppleEn.classList.remove('hidden');
-      btnAppleEn.setAttribute('href', appleScheme);
-      // 兜底备用（长按可复制）：data-fallback
-      btnAppleEn.setAttribute('data-fallback', appleHttp);
-      // 如果用户在桌面浏览器阻止了 scheme，可手动右键复制备用链接
-    }
-  }
-
+  if (btnAppleEn && (isiOS || isMac)) { btnAppleEn.classList.remove('hidden'); btnAppleEn.href = appleScheme; btnAppleEn.setAttribute('data-fallback', appleHttp); }
   const btnBaiduEn = document.getElementById('btn-baidu-en');
-  if (btnBaiduEn && isZh) { // 仅在中文用户更可能使用时显示（你也可以改成始终显示）
-    btnBaiduEn.classList.remove('hidden');
-    btnBaiduEn.setAttribute('href', baiduUrl);
-  }
-
-  // 中文页按钮
+  if (btnBaiduEn && isZh) { btnBaiduEn.classList.remove('hidden'); btnBaiduEn.href = baiduUrl; }
   const btnAppleZh = document.getElementById('btn-apple-zh');
-  if (btnAppleZh) {
-    if (isiOS || isMac) {
-      btnAppleZh.classList.remove('hidden');
-      btnAppleZh.setAttribute('href', appleScheme);
-      btnAppleZh.setAttribute('data-fallback', appleHttp);
-    }
+  if (btnAppleZh && (isiOS || isMac)) { btnAppleZh.classList.remove('hidden'); btnAppleZh.href = appleScheme; btnAppleZh.setAttribute('data-fallback', appleHttp); }
+  const btnBaiduZh = document.getElementById('btn-baidu-zh');
+  if (btnBaiduZh) { btnBaiduZh.classList.remove('hidden'); btnBaiduZh.href = baiduUrl; }
+
+  // ====== 夜/日间主题：加载、切换、存储 ======
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+  const initial = saved || (prefersDark ? 'dark' : 'light');
+  setTheme(initial);
+
+  // 把切换按钮注入到页头右侧（在 lang-switch 和 QR 图标旁边）
+  const headerRight = document.querySelector('.header-right');
+  if (headerRight) {
+    const tbtn = document.createElement('button');
+    tbtn.className = 'theme-btn';
+    tbtn.setAttribute('aria-label', 'Toggle theme');
+    tbtn.setAttribute('title', isZh ? '切换夜/日间模式' : 'Toggle light/dark');
+    tbtn.innerHTML = getThemeIcon(initial);
+    tbtn.addEventListener('click', () => {
+      const now = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      setTheme(now);
+      localStorage.setItem('theme', now);
+      tbtn.innerHTML = getThemeIcon(now);
+      // 同步浏览器地址栏主题色（PWA/移动端观感）
+      setMetaThemeColor(now);
+    });
+    headerRight.appendChild(tbtn);
   }
 
-  const btnBaiduZh = document.getElementById('btn-baidu-zh');
-  if (btnBaiduZh) {
-    btnBaiduZh.classList.remove('hidden'); // 中文页默认显示
-    btnBaiduZh.setAttribute('href', baiduUrl);
+  // 响应系统主题变化（仅当用户未手动选择过时）
+  if (!saved && window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      const next = e.matches ? 'dark' : 'light';
+      setTheme(next);
+      setMetaThemeColor(next);
+    });
+  }
+
+  function setTheme(mode) {
+    document.documentElement.setAttribute('data-theme', mode);
+  }
+  function getThemeIcon(mode) {
+    // 太阳/月亮简洁图标（内联 SVG）
+    return mode === 'dark'
+      ? '<svg viewBox="0 0 24 24"><path d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.79 1.8-1.79zM1 13h3v-2H1v2zm10 10h2v-3h-2v3zM4.84 20.83l1.79-1.79-1.8-1.79-1.79 1.79 1.8 1.79zM20 13h3v-2h-3v2zm-2.76-8.16l1.79-1.79-1.41-1.41-1.79 1.79 1.41 1.41zM12 6a6 6 0 100 12 6 6 0 000-12zm7.16 14.83l1.79-1.79-1.8-1.79-1.79 1.79 1.8 1.79z"/></svg>'
+      : '<svg viewBox="0 0 24 24"><path d="M20.742 13.045A8.001 8.001 0 1111 3a7 7 0 009.742 10.045z"/></svg>';
+  }
+  function setMetaThemeColor(mode) {
+    const el = document.querySelector('meta[name="theme-color"]') || (function(){
+      const m = document.createElement('meta');
+      m.name = 'theme-color';
+      document.head.appendChild(m);
+      return m;
+    })();
+    el.setAttribute('content', mode === 'dark' ? '#0b1220' : '#f7f7fb');
   }
 })();
