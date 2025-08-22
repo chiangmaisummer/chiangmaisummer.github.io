@@ -413,3 +413,29 @@ html[data-theme="dark"] .hero {
   flex: none;
 }
 .t-head .name { font-weight: 700; }
+
+/* ===== Back to Top FAB ===== */
+.backtotop {
+  position: fixed;
+  right: 16px;
+  bottom: 18px;
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--elev);
+  cursor: pointer;
+  opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  z-index: 1100;
+}
+.backtotop.show {
+  opacity: 1; transform: none; pointer-events: auto;
+}
+.backtotop svg { width: 18px; height: 18px; fill: var(--text); }
+.backtotop:hover { transform: translateY(0) scale(1.04); }
+@media (prefers-reduced-motion: reduce) {
+  .backtotop { transition: none; transform: none; }
+}

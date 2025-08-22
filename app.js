@@ -191,3 +191,32 @@
   }, { rootMargin: "0px 0px -10% 0px", threshold: 0.05 });
   els.forEach(el => io.observe(el));
 })();
+
+// ===== Back to Top (floating button) =====
+(function(){
+  const btn = document.createElement('button');
+  btn.className = 'backtotop';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.setAttribute('title', 'Back to top');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-7 7h4v7h6v-7h4l-7-7z"/></svg>';
+  document.body.appendChild(btn);
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const toggle = () => {
+    const show = window.scrollY > 260;
+    btn.classList.toggle('show', show);
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  window.addEventListener('resize', toggle);
+  toggle();
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (prefersReduced) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+})();
