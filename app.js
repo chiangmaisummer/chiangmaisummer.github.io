@@ -307,3 +307,45 @@
   if (en) en.addEventListener('click', ()=>localStorage.setItem('lang_choice','en'));
   if (zh) zh.addEventListener('click', ()=>localStorage.setItem('lang_choice','zh'));
 })();
+
+// ===== Inject "Book" CTA in header & mobile nav =====
+(function(){
+  try {
+    const isZh = (location.pathname.endsWith('-zh.html') ||
+                 (document.documentElement.getAttribute('lang')||'').toLowerCase().startsWith('zh'));
+
+    // 目标链接：若当前页已有 #booking-buttons 则指向本页锚点，否则跳到联系页的锚点
+    const hasLocalAnchor = !!document.getElementById('booking-buttons');
+    const target = hasLocalAnchor
+      ? '#booking-buttons'
+      : (isZh ? 'contact-zh.html#booking-buttons' : 'contact.html#booking-buttons');
+
+    // 顶部右侧（桌面端）
+    const headerRight = document.querySelector('.header-right');
+    if (headerRight && !headerRight.querySelector('.nav-cta')) {
+      const a = document.createElement('a');
+      a.className = 'nav-cta';
+      a.href = target;
+      a.textContent = isZh ? '预订' : 'Book';
+      headerRight.appendChild(a);
+    }
+
+    // 折叠菜单里（移动端）
+    const nav = document.querySelector('.nav-links');
+    if (nav && !nav.querySelector('.nav-cta-inline')) {
+      const a2 = document.createElement('a');
+      a2.className = 'nav-cta-inline';
+      a2.href = target;
+      a2.textContent = isZh ? '预订' : 'Book';
+      // 点击后收起菜单（若已打开）
+      a2.addEventListener('click', ()=>{
+        const btn = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          if (btn) btn.setAttribute('aria-expanded','false');
+        }
+      });
+      nav.appendChild(a2);
+    }
+  } catch(e) { /* ignore */ }
+})();
