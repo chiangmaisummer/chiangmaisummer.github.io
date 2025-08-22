@@ -651,3 +651,108 @@ body.is-scrolled .site-header {
 /* 锚点滚动时避免被吸顶导航遮住 */
 :target { scroll-margin-top: 80px; }
 /* END: sticky-navbar */
+
+/* BEGIN: brand-contrast-fix */
+/* 通用按钮可读性增强 */
+.btn,
+.btn-row a,
+.rooms .actions a {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:10px;
+  font-weight:700; text-decoration:none;
+  border:1px solid transparent;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+/* —— 1) 通过“链接域名”自动上色（最稳的兜底） —— */
+a[href*="booking.com"]{
+  background:#003580 !important; color:#fff !important; border-color:#002a63 !important;
+}
+a[href*="airbnb.cn/"], a[href*="airbnb.com/"]{
+  background:#FF5A5F !important; color:#fff !important; border-color:#d9484d !important;
+}
+a[href^="https://wa.me"]{
+  background:#25D366 !important; color:#fff !important; border-color:#1da453 !important;
+}
+a[href^="https://line.me"]{
+  background:#06C755 !important; color:#fff !important; border-color:#04a644 !important;
+}
+
+/* —— 2) 如果你有类名，也一起增强（双保险） —— */
+.btn-booking{ background:#003580 !important; color:#fff !important; border-color:#002a63 !important; }
+.btn-airbnb{ background:#FF5A5F !important; color:#fff !important; border-color:#d9484d !important; }
+.btn-whatsapp{ background:#25D366 !important; color:#fff !important; border-color:#1da453 !important; }
+.btn-line{ background:#06C755 !important; color:#fff !important; border-color:#04a644 !important; }
+
+/* —— 3) 让按钮里的内联 SVG 图标也变白 —— */
+.btn svg.icon *, 
+.btn-row a svg.icon *, 
+.rooms .actions a svg.icon *,
+a[href*="booking.com"] svg *, 
+a[href*="airbnb.cn/"] svg *, a[href*="airbnb.com/"] svg *,
+a[href^="https://wa.me"] svg *, 
+a[href^="https://line.me"] svg * {
+  fill: currentColor !important; stroke: currentColor !important;
+}
+
+/* —— 4) 联系页 social-card 的 WhatsApp / Line 也上色（保持栅格外观） —— */
+.social-card.social-wa{
+  background:#25D366 !important; color:#fff !important; border-color:#1da453 !important;
+}
+.social-card.social-line{
+  background:#06C755 !important; color:#fff !important; border-color:#04a644 !important;
+}
+.social-card.copy.social-wx{ /* 微信复制按钮也增强可读性 */
+  background:#07C160 !important; color:#fff !important; border-color:#069e4f !important;
+}
+.social-card.copy.social-wb{ /* 微博复制按钮 */
+  background:#E6162D !important; color:#fff !important; border-color:#c01225 !important;
+}
+
+/* 悬停与可访问性 */
+.btn:hover,
+.btn-row a:hover,
+.rooms .actions a:hover,
+.social-card:hover{
+  filter: brightness(0.96);
+}
+/* END: brand-contrast-fix */
+:root{--pulse-color:rgba(255,90,95,0.75);}
+@keyframes pulseGlow{0%{box-shadow:0 0 0 0 var(--pulse-color);transform:translateZ(0) scale(1)}50%{box-shadow:0 0 24px 8px var(--pulse-color);transform:translateZ(0) scale(1.02)}100%{box-shadow:0 0 0 0 var(--pulse-color);transform:translateZ(0) scale(1)}}
+.pulse-cta{position:relative;isolation:isolate;animation:pulseGlow 2.2s ease-in-out infinite;}
+.pulse-cta:hover{filter:brightness(1.05);animation-duration:3s;}
+.pulse-cta:focus-visible{outline:3px solid #fff;outline-offset:2px;}
+@media (prefers-reduced-motion: reduce){.pulse-cta{animation:none!important}}
+.btn-booking.pulse-cta{--pulse-color:rgba(0,53,128,0.62);}
+.btn-airbnb.pulse-cta{--pulse-color:rgba(255,90,95,0.70);}
+a.pulse-cta[href*="booking.com"]{--pulse-color:rgba(0,53,128,0.62);}
+a.pulse-cta[href*="airbnb.cn"],a.pulse-cta[href*="airbnb.com"]{--pulse-color:rgba(255,90,95,0.70);}
+
+/* BEGIN: booking-cta-contrast */
+/* 统一按钮视觉：更大内边距、圆角、加阴影 */
+a.btn, .btn-row a {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:10px; font-weight:700;
+  text-decoration:none; border:1px solid transparent;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+/* 通过链接域名自动上色（无论是否加类名，都生效） */
+a[href*="booking.com"]{
+  background:#003580 !important; color:#fff !important; border-color:#002a63 !important;
+}
+a[href*="airbnb.cn"], a[href*="airbnb.com"]{
+  background:#FF5A5F !important; color:#fff !important; border-color:#d9484d !important;
+}
+
+/* 若使用了类名，也一并兜底（双保险） */
+.btn-booking{ background:#003580 !important; color:#fff !important; border-color:#002a63 !important; }
+.btn-airbnb{  background:#FF5A5F !important; color:#fff !important; border-color:#d9484d !important; }
+.btn-reserve{ color:#fff !important; }
+
+/* 按钮里的内联 SVG 跟随文字颜色（避免浅色图标看不见） */
+a.btn svg *, .btn-row a svg * { fill: currentColor !important; stroke: currentColor !important; }
+
+/* 悬停略亮，保证可读 */
+a.btn:hover, .btn-row a:hover { filter: brightness(1.05); }
+/* END: booking-cta-contrast */
