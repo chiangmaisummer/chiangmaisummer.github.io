@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chiang Mai Summer — Home</title>
+  <title>Chiang Mai Summer — Blog</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .post-list { text-align: left; display: inline-block; max-width: 720px; width:100%; }
+    .post { background:#fff; padding:16px; border-radius:8px; margin:12px 0; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+    .post h3 { margin: 0 0 8px; }
+    .post time { font-size: 12px; color:#777; }
+    .post p { margin:8px 0 0; }
+  </style>
 </head>
 <body>
   <header>
     <div class="container header-inner">
-      <h1 class="site-title">Chiang Mai Summer</h1>
+      <h1 class="site-title">Blog</h1>
       <div class="header-right">
         <div class="nav">
           <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
@@ -28,10 +35,14 @@
   </header>
 
   <main class="container">
-    <h2>Welcome to Chiang Mai Summer</h2>
-    <p>Hi! I’m <strong>chiangmaisummer</strong> — I run <em>Chiang Mai Summer Resort</em> and <em>Chiang Mai Summer Tour</em> in the Old City. 
-    Here I share travel tips, local culture, and updates from Chiang Mai.</p>
-    <p>Languages: English • 中文 • ไทย</p>
+    <h2>Latest posts</h2>
+    <div class="post-list">
+      <article class="post">
+        <h3>First post — Why I love Chiang Mai’s Old City</h3>
+        <time datetime="2025-08-22">Aug 22, 2025</time>
+        <p>Some quick thoughts about slow mornings, Lanna architecture, and markets within walking distance…</p>
+      </article>
+    </div>
   </main>
 
   <footer>
