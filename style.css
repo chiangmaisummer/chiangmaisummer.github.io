@@ -439,3 +439,25 @@ html[data-theme="dark"] .hero {
 @media (prefers-reduced-motion: reduce) {
   .backtotop { transition: none; transform: none; }
 }
+
+/* ===== Booking & Airbnb buttons styling ===== */
+.btn-booking, .btn-airbnb {
+  display: inline-flex;
+  align-items: center;
+  background-color: #003580;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 8px;
+  transition: background-color 0.3s;
+}
+.btn-booking:hover { background-color: #00264d; }
+.btn-airbnb { background-color: #FF5A5F; }
+.btn-airbnb:hover { background-color: #e0484a; }
+
+.btn-booking img, .btn-airbnb img {
+  height: 20px;
+  margin-right: 6px;
+}
