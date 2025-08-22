@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Booking.com" fill="none">
+  <rect x="4" y="8" width="56" height="48" rx="10" fill="#003580"/>
+  <circle cx="46" cy="44" r="4" fill="#FFC300"/>
+  <path fill="#FFFFFF" d="M18 22h14c4.5 0 8 3.5 8 8s-3.5 8-8 8H18V22zm8 6v4h6a2 2 0 1 0 0-4h-6z"/>
+</svg>
