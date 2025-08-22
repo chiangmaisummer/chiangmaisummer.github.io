@@ -365,8 +365,15 @@
         cta.className = 'nav-cta';
         headerRight.appendChild(cta);
       }
-      cta.href = target;
-      cta.innerHTML = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;margin-right:6px;vertical-align:-2px;"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7zm2-4h12a2 2 0 0 1 2 2v2H4V5a2 2 0 0 1 2-2z"/></svg>' + (isZh ? '预订' : 'Book');
+      \1
+          cta.innerHTML = `<span class="brand-pair" style="display:inline-flex;gap:4px;align-items:center;margin-right:6px;"><svg class="icon icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="14" height="14" role="img" aria-label="Booking.com" fill="none">
+  <rect x="4" y="8" width="56" height="48" rx="10" fill="#003580"/>
+  <circle cx="46" cy="44" r="4" fill="#FFC300"/>
+  <path fill="#FFFFFF" d="M18 22h14c4.5 0 8 3.5 8 8s-3.5 8-8 8H18V22zm8 6v4h6a2 2 0 1 0 0-4h-6z"/>
+</svg><svg class="icon icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="14" height="14" role="img" aria-label="Airbnb" fill="none">
+  <path fill="#FF5A5F" d="M32 8c-2 0-3.7 1.2-5 3.5-3.8 6.5-9 16.6-11.8 23.2C13.7 38.2 12 42 12 45.5 12 52.5 18 56 24 56c5.3 0 8.8-3.2 10.8-6.2 2 3 5.5 6.2 10.8 6.2 6 0 12-3.5 12-10.5 0-3.5-1.7-7.3-3.2-10.8C51 28.1 45.8 18 42 11.5 40 9.2 38 8 36 8h-4zM24 50c-3.7 0-6-2.3-6-4.5 0-2 .8-4.2 2.5-8.2 2.5-5.9 6.6-13.8 11.5-22.3 4.9 8.5 9 16.4 11.5 22.3 1.7 4 2.5 6.2 2.5 8.2 0 2.2-2.3 4.5-6 4.5-4.3 0-6.5-3.7-7.7-6.5-.5-1.1-2.1-1.1-2.6 0-1.2 2.8-3.4 6.5-7.7 6.5z"/>
+  <circle cx="32" cy="41" r="5.5" fill="#FF5A5F"/>
+</svg></span>${isZh?'预订':'Book'}`;cta.innerHTML = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;margin-right:6px;vertical-align:-2px;"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7zm2-4h12a2 2 0 0 1 2 2v2H4V5a2 2 0 0 1 2-2z"/></svg>' + (isZh ? '预订' : 'Book');
     }
 
     const nav = document.querySelector('.nav-links');
@@ -378,7 +385,14 @@
         nav.appendChild(cta2);
       }
       cta2.href = target;
-      cta2.textContent = isZh ? '预订' : 'Book';
+      cta2.innerHTML = `<span class="brand-pair" style="display:inline-flex;gap:4px;align-items:center;margin-right:6px;"><svg class="icon icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="14" height="14" role="img" aria-label="Booking.com" fill="none">
+  <rect x="4" y="8" width="56" height="48" rx="10" fill="#003580"/>
+  <circle cx="46" cy="44" r="4" fill="#FFC300"/>
+  <path fill="#FFFFFF" d="M18 22h14c4.5 0 8 3.5 8 8s-3.5 8-8 8H18V22zm8 6v4h6a2 2 0 1 0 0-4h-6z"/>
+</svg><svg class="icon icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="14" height="14" role="img" aria-label="Airbnb" fill="none">
+  <path fill="#FF5A5F" d="M32 8c-2 0-3.7 1.2-5 3.5-3.8 6.5-9 16.6-11.8 23.2C13.7 38.2 12 42 12 45.5 12 52.5 18 56 24 56c5.3 0 8.8-3.2 10.8-6.2 2 3 5.5 6.2 10.8 6.2 6 0 12-3.5 12-10.5 0-3.5-1.7-7.3-3.2-10.8C51 28.1 45.8 18 42 11.5 40 9.2 38 8 36 8h-4zM24 50c-3.7 0-6-2.3-6-4.5 0-2 .8-4.2 2.5-8.2 2.5-5.9 6.6-13.8 11.5-22.3 4.9 8.5 9 16.4 11.5 22.3 1.7 4 2.5 6.2 2.5 8.2 0 2.2-2.3 4.5-6 4.5-4.3 0-6.5-3.7-7.7-6.5-.5-1.1-2.1-1.1-2.6 0-1.2 2.8-3.4 6.5-7.7 6.5z"/>
+  <circle cx="32" cy="41" r="5.5" fill="#FF5A5F"/>
+</svg></span>${isZh?'预订':'Book'}`;
       cta2.addEventListener('click', ()=>{
         const btn = document.querySelector('.nav-toggle');
         if (nav.classList.contains('open')) {
