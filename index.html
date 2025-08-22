@@ -8,19 +8,27 @@
 </head>
 <body>
   <header>
-    <h1>Welcome to chiangmaisummer.github.io</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div class="container header-inner">
+      <h1 class="site-title">chiangmaisummer.github.io</h1>
+      <div class="nav">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
   </header>
-  <main>
+
+  <main class="container">
     <h2>Hello GitHub Pages!</h2>
     <p>This is the home page of <strong>chiangmaisummer</strong>.</p>
   </main>
+
   <footer>
-    &copy; 2025 chiangmaisummer
+    <div class="container">&copy; 2025 chiangmaisummer</div>
   </footer>
+  <script src="app.js"></script>
 </body>
 </html>
