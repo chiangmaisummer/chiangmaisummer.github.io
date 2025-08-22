@@ -40,6 +40,13 @@
       <p><strong>GPS:</strong> 18.784389, 98.989616</p>
     </div>
 
+    <!-- Copy buttons -->
+    <div class="btn-row">
+      <a href="#" class="btn" data-copy="4/1 Prapokklao Rd. Soi 6, T. Phrasing, Muang Chiang Mai, 50200" data-toast="Copied EN address!">Copy EN Address</a>
+      <a href="#" class="btn" data-copy="เลขที่ 4/1 พระปกเกล้า ซ.6 ต.พระสิงห์ อ.เมือง จ.เชียงใหม่ 50200" data-toast="Copied TH address!">Copy TH Address</a>
+      <a href="#" class="btn" data-copy="18.784389, 98.989616" data-toast="Copied GPS!">Copy GPS</a>
+    </div>
+
     <div class="map-wrap">
       <iframe
         src="https://www.google.com/maps?q=18.784389,98.989616&z=16&output=embed"
@@ -49,12 +56,18 @@
       </iframe>
     </div>
 
-    <p><a href="https://www.google.com/maps?q=18.784389,98.989616" target="_blank" rel="noopener">Open in Google Maps</a></p>
+    <!-- Quick open buttons -->
+    <div class="btn-row">
+      <a class="btn primary" href="https://www.google.com/maps?q=18.784389,98.989616" target="_blank" rel="noopener">Open in Google Maps</a>
+      <a class="btn secondary" href="grab://open?screenType=BOOK_RIDE">Open in Grab (App)</a>
+      <a class="btn" href="https://www.grab.com/th/en/transport/" target="_blank" rel="noopener">Grab (Web Help)</a>
+    </div>
   </main>
 
   <footer>
     <div class="container">&copy; 2025 Chiang Mai Summer</div>
   </footer>
   <script src="app.js"></script>
+  <div class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
