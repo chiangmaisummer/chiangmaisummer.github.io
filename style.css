@@ -552,3 +552,55 @@ html[data-theme="dark"] .hero {
 }
 .faq details[open] summary::after{ content:"▾"; }
 .faq .ans { color: var(--muted); margin-top: 8px; }
+
+/* === Compact 2x2 social grid === */
+.social-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  margin: 8px 0 4px;
+}
+@media (min-width: 520px){
+  .social-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.social-card {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px; border:1px solid var(--border);
+  border-radius:12px; background:var(--card); box-shadow:var(--elev);
+  text-decoration:none; font-weight:700;
+}
+.social-card .icon { width:20px; height:20px; flex:0 0 20px; }
+.social-card .text { flex:1 1 auto; }
+.social-card.copy { cursor:pointer; }
+.social-card:hover { filter:brightness(0.98); }
+.social-wb { color:#E6162D; }
+.social-wx { color:#07C160; }
+.social-wa { color:#25D366; }
+.social-line { color:#06C755; }
+
+/* BEGIN: social-grid-styles */
+/* === Compact 2x2 social grid === */
+.social-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+  margin: 8px 0 4px;
+}
+@media (min-width: 520px){
+  .social-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.social-card {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px; border:1px solid var(--border);
+  border-radius:12px; background:var(--card); box-shadow:var(--elev);
+  text-decoration:none; font-weight:700;
+}
+.social-card .icon { width:20px; height:20px; flex:0 0 20px; }
+.social-card .text { flex:1 1 auto; }
+.social-card.copy { cursor:pointer; }
+.social-card:hover { filter:brightness(0.98); }
+.social-wb { color:#E6162D; }
+.social-wx { color:#07C160; }
+.social-wa { color:#25D366; }
+.social-line { color:#06C755; }
+/* END: social-grid-styles */
