@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="WeChat">
-  <circle cx="10" cy="11" r="6.5" fill="#07C160"/>
-  <circle cx="15.5" cy="13.5" r="5.5" fill="#07C160"/>
-  <circle cx="8.2" cy="10" r="0.9" fill="#fff"/>
-  <circle cx="11.5" cy="10" r="0.9" fill="#fff"/>
-  <circle cx="14.3" cy="13.1" r="0.9" fill="#fff"/>
-  <circle cx="17.3" cy="13.1" r="0.9" fill="#fff"/>
-  <path d="M8 17l-2.1 1 .9-2" fill="#07C160"/>
-</svg>
