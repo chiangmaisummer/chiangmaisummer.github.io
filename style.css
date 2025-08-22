@@ -756,3 +756,60 @@ a.btn svg *, .btn-row a svg * { fill: currentColor !important; stroke: currentCo
 /* 悬停略亮，保证可读 */
 a.btn:hover, .btn-row a:hover { filter: brightness(1.05); }
 /* END: booking-cta-contrast */
+
+/* BEGIN: gmaps-contrast-fix */
+/* 目标：任何“打开 Google 地图”的链接都变成高对比蓝底白字（无论是否有 class） */
+
+/* 选择所有 Google Maps 链接：maps.google.com / google.com/maps / maps.app.goo.gl 短链等 */
+a[href*="google.com/maps"],
+a[href*="maps.google.com"],
+a[href^="https://maps.app.goo.gl"],
+a[href^="http://maps.app.goo.gl"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 14px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+
+  /* Google 蓝（Material Blue 600） */
+  background: #1A73E8 !important;
+  color: #ffffff !important;
+  border: 1px solid #185ABC !important;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12) !important;
+
+  /* 兼容：如果父容器用了混合/滤镜导致发灰，这里强制恢复 */
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* 悬停/按下效果 */
+a[href*="google.com/maps"]:hover,
+a[href*="maps.google.com"]:hover,
+a[href^="https://maps.app.goo.gl"]:hover,
+a[href^="http://maps.app.goo.gl"]:hover {
+  filter: brightness(1.06) !important;
+}
+
+/* 内联 SVG 图标也跟随文字变白 */
+a[href*="google.com/maps"] svg *,
+a[href*="maps.google.com"] svg *,
+a[href^="https://maps.app.goo.gl"] svg *,
+a[href^="http://maps.app.goo.gl"] svg * {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 如果这个按钮放在 .social-card 或 .map-actions 里，保持布局不乱 */
+.social-card a[href*="google.com/maps"],
+.map-actions a[href*="google.com/maps"],
+.social-card a[href*="maps.google.com"],
+.map-actions a[href*="maps.google.com"],
+.social-card a[href^="https://maps.app.goo.gl"],
+.map-actions a[href^="https://maps.app.goo.gl"] {
+  width: 100%;
+  justify-content: center;
+}
+/* END: gmaps-contrast-fix */
