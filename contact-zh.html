@@ -226,6 +226,75 @@ a.btn svg * { fill: currentColor !important; stroke: currentColor !important; }
 </footer>
   <script src="app.js"></script>
   <div class="toast" role="status" aria-live="polite"></div>
+<!-- BEGIN: booking-cta-ULTIMATE -->
+<style>
+:where(html body main, html body) a[href*="booking.com"],
+:where(html body main, html body) a[href*="airbnb.cn"],
+:where(html body main, html body) a[href*="airbnb.com"] {
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  padding:10px 14px !important;
+  border-radius:10px !important;
+  font-weight:700 !important;
+  text-decoration:none !important;
+  color:#ffffff !important;
+  border:1px solid transparent !important;
+  box-shadow:0 6px 16px rgba(0,0,0,.12) !important;
+  opacity:1 !important; visibility:visible !important;
+}
+:where(html body main, html body) a[href*="booking.com"] {
+  background:#003580 !important; border-color:#002a63 !important;
+}
+:where(html body main, html body) a[href*="airbnb.cn"],
+:where(html body main, html body) a[href*="airbnb.com"] {
+  background:#FF5A5F !important; border-color:#d9484d !important;
+}
+:where(html body main, html body) a[href*="booking.com"] svg *,
+:where(html body main, html body) a[href*="airbnb.cn"] svg *,
+:where(html body main, html body) a[href*="airbnb.com"] svg * {
+  fill:currentColor !important; stroke:currentColor !important;
+}
+</style>
+<script>
+(function(){
+  var sels = [
+    'a[href*="booking.com"]',
+    'a[href*="airbnb.cn"]',
+    'a[href*="airbnb.com"]'
+  ];
+  var propsBooking = {
+    background: '#003580',
+    color: '#fff',
+    borderColor: '#002a63',
+    display: 'inline-flex',
+    padding: '10px 14px',
+    borderRadius: '10px',
+    fontWeight: '700',
+    boxShadow: '0 6px 16px rgba(0,0,0,.12)'
+  };
+  var propsAirbnb = {
+    background: '#FF5A5F',
+    color: '#fff',
+    borderColor: '#d9484d',
+    display: 'inline-flex',
+    padding: '10px 14px',
+    borderRadius: '10px',
+    fontWeight: '700',
+    boxShadow: '0 6px 16px rgba(0,0,0,.12)'
+  };
+  function apply(el, props) {
+    for (var k in props) el.style.setProperty(k.replace(/[A-Z]/g, m=>'-'+m.toLowerCase()), props[k], 'important');
+  }
+  function run(){
+    document.querySelectorAll('a[href*="booking.com"]').forEach(el=>apply(el, propsBooking));
+    document.querySelectorAll('a[href*="airbnb.cn"], a[href*="airbnb.com"]').forEach(el=>apply(el, propsAirbnb));
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
+})();
+</script>
+<!-- END: booking-cta-ULTIMATE -->
 </body>
 </html>
 
