@@ -85,7 +85,7 @@
   function qrSrc(u){
     const enc = encodeURIComponent(u);
     // Google Chart API 生成二维码
-    return 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + enc;
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=300x300chart.googleapis.com/chart?cht=qr&chs=300x300&chl=data=' + enc;
   }
 
   function setActive(which){
