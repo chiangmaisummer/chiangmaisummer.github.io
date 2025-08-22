@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;Chiang Mai Summer;;;
+FN:Chiang Mai Summer
+ORG:Chiang Mai Summer Resort
+TEL;TYPE=CELL,VOICE:+66848087886
+EMAIL;TYPE=INTERNET,HOME:chiangmaisummer@gmail.com
+ADR;TYPE=WORK:;;4/1 Prapokklao Rd. Soi 6, T. Phrasing;Chiang Mai;;50200;Thailand
+URL:https://chiangmaisummer.github.io/
+NOTE:GPS 18.784389, 98.989616
+END:VCARD

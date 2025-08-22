@@ -69,84 +69,10 @@
       <a class="btn"           href="https://www.grab.com/th/en/transport/" target="_blank" rel="noopener">Grab (Web Help)</a>
     </div>
 
-    <!-- Taxi Notes -->
-    <section class="card">
-      <h3>Taxi Notes (copy & show to driver)</h3>
-      <p>Short English note:</p>
-      <div class="btn-row">
-        <a href="#" class="btn" data-copy="Please take me to Chiang Mai Old City, Prapokklao Road Soi 6 (Soi 6), near Wat Phra Singh. House number 4/1. Thank you." data-toast="Copied taxi note (EN)!">Copy EN Taxi Note</a>
-      </div>
-      <
-cat > contact.html << 'EOF'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chiang Mai Summer — Contact</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <div class="container header-inner">
-      <h1 class="site-title">Contact</h1>
-      <div class="header-right">
-        <div class="nav">
-          <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
-          <nav id="primary-navigation" class="nav-links" aria-label="Primary">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="blog.html">Blog</a>
-            <a href="contact.html">Contact</a>
-          </nav>
-        </div>
-        <div class="lang-switch" aria-label="Language">
-          <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:chiangmaisummer@gmail.com">chiangmaisummer@gmail.com</a></p>
-    <p>WhatsApp / Line: <a href="tel:+66848087886">+66 84 808 7886</a></p>
+    <!-- New: copy short link & vCard -->
     <div class="btn-row">
-      <a class="btn primary"   href="https://wa.me/66848087886?text=Hi%20I%27d%20like%20to%20ask%20about%20Chiang%20Mai%20Summer" target="_blank" rel="noopener">Chat on WhatsApp</a>
-    </div>
-    <p>Old City, Chiang Mai • Open since 2010</p>
-
-    <h2 style="margin-top:40px;">Map & Location</h2>
-    <div class="addr-list">
-      <p><strong>Address (EN):</strong> 4/1 Prapokklao Rd. Soi 6, T. Phrasing, Muang Chiang Mai, 50200</p>
-      <p><strong>Address (TH):</strong> เลขที่ 4/1 พระปกเกล้า ซ.6 ต.พระสิงห์ อ.เมือง จ.เชียงใหม่ 50200</p>
-      <p><strong>GPS:</strong> 18.784389, 98.989616</p>
-    </div>
-
-    <!-- Copy buttons -->
-    <div class="btn-row">
-      <a href="#" class="btn" data-kind="en"  data-copy="4/1 Prapokklao Rd. Soi 6, T. Phrasing, Muang Chiang Mai, 50200" data-toast="Copied EN address!">Copy EN Address</a>
-      <a href="#" class="btn" data-kind="th"  data-copy="เลขที่ 4/1 พระปกเกล้า ซ.6 ต.พระสิงห์ อ.เมือง จ.เชียงใหม่ 50200" data-toast="Copied TH address!">Copy TH Address</a>
-      <a href="#" class="btn" data-kind="gps" data-copy="18.784389, 98.989616" data-toast="Copied GPS!">Copy GPS</a>
-      <a href="#" class="btn secondary" data-copy-all data-toast="Copied all!">Copy All</a>
-    </div>
-
-    <div class="map-wrap">
-      <iframe
-        src="https://www.google.com/maps?q=18.784389,98.989616&z=16&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- Quick open buttons -->
-    <div class="btn-row">
-      <a class="btn primary"   href="https://www.google.com/maps?q=18.784389,98.989616" target="_blank" rel="noopener">Open in Google Maps</a>
-      <a id="btn-apple-en" class="btn hidden" href="#">Open in Apple Maps</a>
-      <a id="btn-baidu-en" class="btn hidden" href="#" target="_blank" rel="noopener">Open in Baidu Maps</a>
-      <a class="btn secondary" href="grab://open?screenType=BOOK_RIDE">Open in Grab (App)</a>
-      <a class="btn"           href="https://www.grab.com/th/en/transport/" target="_blank" rel="noopener">Grab (Web Help)</a>
+      <a href="#" class="btn" data-copy="https://chiangmaisummer.github.io/map" data-toast="Copied map short link!">Copy Map Short Link</a>
+      <a class="btn" href="chiangmai-summer.vcf" download>Download vCard</a>
     </div>
 
     <!-- Taxi Notes -->
