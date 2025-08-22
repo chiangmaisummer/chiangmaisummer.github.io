@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chiang Mai Summer — QR Codes</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .qr-wrap { max-width: 980px; margin: 24px auto; text-align: center; }
+    .seg { display:inline-flex; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+    .seg button { border:0; padding:10px 16px; cursor:pointer; background:#fff; font-weight:bold; }
+    .seg button.active { background: var(--brand); color:#fff; }
+    .qr-card { background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); padding:18px; margin:18px auto; display:inline-block; }
+    .qr-img { width:280px; height:280px; display:block; }
+    .muted { color:#666; font-size:14px; margin-top:8px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">QR Codes</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="Language">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <!-- 自己也给自己一个入口（你已经在其它页面加入了这个图标，这里保持一致） -->
+      <a class="icon-btn" href="qr.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="qr-wrap container">
+  <h2>Scan to open Map or save Contact</h2>
+
+  <!-- 切换开关 -->
+  <div class="seg" role="tablist" aria-label="QR switch">
+    <button id="tab-map" class="active" role="tab" aria-selected="true">Google Map</button>
+    <button id="tab-vcf" role="tab" aria-selected="false">vCard</button>
+  </div>
+
+  <!-- 二维码卡片 -->
+  <div class="qr-card">
+    <img id="qr" class="qr-img" alt="QR code"/>
+    <div id="qr-label" class="muted">QR for: <code>https://chiangmaisummer.github.io/map</code></div>
+  </div>
+
+  <!-- 操作按钮 -->
+  <div class="btn-row">
+    <a id="btn-open" class="btn primary" href="https://chiangmaisummer.github.io/map" target="_blank" rel="noopener">Open Link</a>
+    <a id="btn-copy" class="btn" href="#" data-toast="Copied!">Copy Link</a>
+    <a class="btn" href="chiangmai-summer.vcf" download>Download vCard</a>
+  </div>
+
+  <p class="muted">Tip: show this page to guests — they can scan to navigate or save the contact.</p>
+</main>
+
+<footer>
+  <div class="container">&copy; 2025 Chiang Mai Summer</div>
+</footer>
+
+<script src="app.js"></script>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  const MAP_URL = 'https://chiangmaisummer.github.io/map';
+  const VCF_URL = 'https://chiangmaisummer.github.io/chiangmai-summer.vcf';
+  const qr = document.getElementById('qr');
+  const label = document.getElementById('qr-label');
+  const btnOpen = document.getElementById('btn-open');
+  const btnCopy = document.getElementById('btn-copy');
+  const tabMap = document.getElementById('tab-map');
+  const tabVcf = document.getElementById('tab-vcf');
+
+  function qrSrc(u){
+    const enc = encodeURIComponent(u);
+    // Google Chart API 生成二维码
+    return 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + enc;
+  }
+
+  function setActive(which){
+    const isMap = which === 'map';
+    tabMap.classList.toggle('active', isMap);
+    tabMap.setAttribute('aria-selected', isMap ? 'true' : 'false');
+    tabVcf.classList.toggle('active', !isMap);
+    tabVcf.setAttribute('aria-selected', !isMap ? 'true' : 'false');
+
+    const url = isMap ? MAP_URL : VCF_URL;
+    qr.src = qrSrc(url);
+    label.innerHTML = 'QR for: <code>' + url + '</code>';
+    btnOpen.href = url;
+    btnOpen.textContent = isMap ? 'Open Map' : 'Open vCard';
+    btnCopy.setAttribute('data-copy', url);
+  }
+
+  tabMap.addEventListener('click', ()=>setActive('map'));
+  tabVcf.addEventListener('click', ()=>setActive('vcf'));
+  setActive('map'); // 默认地图
+
+  // 复用 app.js 的复制逻辑：给按钮加 data-copy 后点击会弹 toast
+  btnCopy.addEventListener('click', function(e){
+    if(!btnCopy.getAttribute('data-copy')) e.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>
