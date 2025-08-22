@@ -477,3 +477,17 @@ html[data-theme="dark"] .hero {
 
 /* 小图标统一尺寸 */
 .icon-svg { width:18px; height:18px; fill: currentColor; }
+
+/* ===== Booking & Airbnb buttons ===== */
+.btn-row.booking { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.btn-booking, .btn-airbnb {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 14px; border-radius: 10px; font-weight: 700;
+  text-decoration: none; border: 1px solid var(--border);
+  box-shadow: var(--elev);
+}
+.btn-booking { background:#003580; color:#fff; border-color: transparent; }
+.btn-booking:hover { background:#00264d; }
+.btn-airbnb { background:#FF5A5F; color:#fff; border-color: transparent; }
+.btn-airbnb:hover { background:#e0484a; }
+.icon-svg { width:18px; height:18px; fill: currentColor; }
