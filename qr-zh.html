@@ -11,7 +11,7 @@
     .seg button { border:0; padding:10px 16px; cursor:pointer; background:#fff; font-weight:bold; }
     .seg button.active { background: var(--brand); color:#fff; }
     .qr-card { background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.06); padding:18px; margin:18px auto; display:inline-block; }
-    .qr-img { width:280px; height:280px; display:block; }
+    .qr-box { width:280px; height:280px; }
     .muted { color:#666; font-size:14px; margin-top:8px; }
   </style>
 </head>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="qr-card">
-    <img id="qr" class="qr-img" alt="二维码"/>
+    <div id="qrcode" class="qr-box" aria-label="二维码"></div>
     <div id="qr-label" class="muted">当前链接：<code>https://chiangmaisummer.github.io/map</code></div>
   </div>
 
@@ -58,51 +58,45 @@
     <a class="btn" href="chiangmai-summer.vcf" download>下载 vCard</a>
   </div>
 
-  <p class="muted">提示：可以把这个页面给客人扫码，快速导航或保存联系人。</p>
+  <p class="muted">提示：把这个页面给客人扫码即可导航或保存联系人。</p>
 </main>
 
 <footer>
   <div class="container">&copy; 2025 清迈夏天</div>
 </footer>
 
+<script src="qrcode.min.js"></script>
 <script src="app.js"></script>
 <div class="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
   const MAP_URL = 'https://chiangmaisummer.github.io/map';
   const VCF_URL = 'https://chiangmaisummer.github.io/chiangmai-summer.vcf';
-  const qr = document.getElementById('qr');
+
+  const box = document.getElementById('qrcode');
   const label = document.getElementById('qr-label');
   const btnOpen = document.getElementById('btn-open');
   const btnCopy = document.getElementById('btn-copy');
   const tabMap = document.getElementById('tab-map');
   const tabVcf = document.getElementById('tab-vcf');
 
-  function qrSrc(u){
-    const enc = encodeURIComponent(u);
-    return 'https://api.qrserver.com/v1/create-qr-code/?size=300x300chart.googleapis.com/chart?cht=qr&chs=300x300&chl=data=' + enc;
-  }
-  function setActive(which){
-    const isMap = which === 'map';
-    tabMap.classList.toggle('active', isMap);
-    tabMap.setAttribute('aria-selected', isMap ? 'true' : 'false');
-    tabVcf.classList.toggle('active', !isMap);
-    tabVcf.setAttribute('aria-selected', !isMap ? 'true' : 'false');
+  const qrcode = new QRCode(box,{width:280,height:280});
 
-    const url = isMap ? MAP_URL : VCF_URL;
-    qr.src = qrSrc(url);
+  function render(url){
+    qrcode.clear();
+    qrcode.makeCode(url);
     label.innerHTML = '当前链接：<code>' + url + '</code>';
     btnOpen.href = url;
-    btnOpen.textContent = isMap ? '打开地图' : '打开 vCard';
+    btnOpen.textContent = (url===MAP_URL) ? '打开地图' : '打开 vCard';
     btnCopy.setAttribute('data-copy', url);
   }
-  tabMap.addEventListener('click', ()=>setActive('map'));
-  tabVcf.addEventListener('click', ()=>setActive('vcf'));
-  setActive('map');
 
-  btnCopy.addEventListener('click', function(e){
-    if(!btnCopy.getAttribute('data-copy')) e.preventDefault();
-  });
+  tabMap.addEventListener('click', ()=>{ tabMap.classList.add('active'); tabVcf.classList.remove('active'); render(MAP_URL); });
+  tabVcf.addEventListener('click', ()=>{ tabVcf.classList.add('active'); tabMap.classList.remove('active'); render(VCF_URL); });
+
+  render(MAP_URL);
+
+  btnCopy.addEventListener('click', e => { if(!btnCopy.getAttribute('data-copy')) e.preventDefault(); });
 })();
 </script>
 </body>
