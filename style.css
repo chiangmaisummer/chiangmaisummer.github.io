@@ -232,3 +232,17 @@ footer {
 }
 
 .hidden { display: none !important; }
+
+/* ===== Cards for sections ===== */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  padding: 18px;
+  margin: 18px auto;
+  text-align: left;
+  max-width: 980px;
+}
+.card h3 { margin: 0 0 10px; }
+.card p, .card li { margin: 6px 0; }
+.card ul { padding-left: 18px; }
