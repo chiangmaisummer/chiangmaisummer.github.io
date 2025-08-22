@@ -349,3 +349,70 @@
     }
   } catch(e) { /* ignore */ }
 })();
+
+// ===== Update Book CTA target to booking page (EN/ZH) + add small icon
+(function(){
+  try {
+    const isZh = (location.pathname.endsWith('-zh.html') ||
+                 (document.documentElement.getAttribute('lang')||'').toLowerCase().startsWith('zh'));
+    const target = isZh ? 'booking-zh.html' : 'booking.html';
+
+    const headerRight = document.querySelector('.header-right');
+    if (headerRight) {
+      let cta = headerRight.querySelector('.nav-cta');
+      if (!cta) {
+        cta = document.createElement('a');
+        cta.className = 'nav-cta';
+        headerRight.appendChild(cta);
+      }
+      cta.href = target;
+      cta.innerHTML = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;margin-right:6px;vertical-align:-2px;"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7zm2-4h12a2 2 0 0 1 2 2v2H4V5a2 2 0 0 1 2-2z"/></svg>' + (isZh ? '预订' : 'Book');
+    }
+
+    const nav = document.querySelector('.nav-links');
+    if (nav) {
+      let cta2 = nav.querySelector('.nav-cta-inline');
+      if (!cta2) {
+        cta2 = document.createElement('a');
+        cta2.className = 'nav-cta-inline';
+        nav.appendChild(cta2);
+      }
+      cta2.href = target;
+      cta2.textContent = isZh ? '预订' : 'Book';
+      cta2.addEventListener('click', ()=>{
+        const btn = document.querySelector('.nav-toggle');
+        if (nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          if (btn) btn.setAttribute('aria-expanded','false');
+        }
+      });
+    }
+  } catch(e) {}
+})();
+
+// ===== Copy-to-clipboard for elements with [data-copy] =====
+(function(){
+  function toast(msg){
+    try {
+      var t = document.querySelector('.toast'); 
+      if(!t){ t = document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+      t.textContent = msg; t.style.opacity = 1;
+      setTimeout(()=>{ t.style.opacity = 0; }, 1600);
+    } catch(e){}
+  }
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-copy]');
+    if(!el) return;
+    e.preventDefault();
+    var text = el.getAttribute('data-copy') || '';
+    if(!text) return;
+    navigator.clipboard.writeText(text).then(function(){
+      toast((location.pathname.endsWith('-zh.html') ? '已复制：' : 'Copied: ') + text);
+    }).catch(function(){
+      // 兼容不支持 clipboard 的环境
+      var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+      ta.select(); try{ document.execCommand('copy'); toast((location.pathname.endsWith('-zh.html') ? '已复制：' : 'Copied: ') + text);}catch(e){}
+      ta.remove();
+    });
+  });
+})();
