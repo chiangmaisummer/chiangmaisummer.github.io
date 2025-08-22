@@ -508,3 +508,47 @@ html[data-theme="dark"] .hero {
   background: var(--brand); color: #fff; border: 1px solid transparent;
 }
 .nav-links.open .nav-cta-inline { display: inline-block; }
+
+/* ===== Rooms & Rates ===== */
+.rooms { padding: 8px 0 12px; }
+.rooms .grid {
+  display:grid; gap:16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+}
+.room {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--elev);
+  padding: 16px;
+}
+.room h4 { margin: 0 0 6px; }
+.badge {
+  display:inline-block; padding:4px 10px; border-radius:999px;
+  background: #10b981; color:#fff; font-weight:700; font-size: 14px;
+}
+.meta { color: var(--muted); font-size: 14px; margin-top:6px; }
+.room .actions { margin-top: 10px; display:flex; gap:8px; flex-wrap:wrap; }
+.room .actions .btn { border-radius: 999px; padding: 10px 14px; }
+.room ul { margin:10px 0 0; padding-left: 18px; }
+
+/* ===== FAQ Accordion ===== */
+.faq { margin: 22px 0; }
+.faq details {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--elev);
+  margin:10px 0;
+  padding: 12px 14px;
+}
+.faq summary {
+  cursor:pointer; font-weight:700;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{
+  content:"▸"; float:right; transform: translateY(1px);
+}
+.faq details[open] summary::after{ content:"▾"; }
+.faq .ans { color: var(--muted); margin-top: 8px; }

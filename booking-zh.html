@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>预订 · 清迈夏天</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <h1 class="site-title">在线预订</h1>
+    <div class="header-right">
+      <div class="nav">
+        <button class="nav-toggle" aria-label="切换导航" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+        <nav id="primary-navigation" class="nav-links" aria-label="主导航">
+          <a href="index-zh.html">首页</a>
+          <a href="about-zh.html">关于</a>
+          <a href="blog-zh.html">博客</a>
+          <a href="contact-zh.html">联系</a>
+        </nav>
+      </div>
+      <div class="lang-switch" aria-label="语言">
+        <a id="lang-en" href="#">EN</a><span class="lang-divider">|</span><a id="lang-zh" href="#">中文</a>
+      </div>
+      <a class="icon-btn" href="qr-zh.html" aria-label="QR Code">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm6-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm10 0h2v2h2v-2h2v6h-6v-2h2v-2h-2v-2zm-4 4h2v2h-2v-2zm4 2h2v2h-2v-2z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero reveal">
+    <h2>选择你喜欢的平台</h2>
+    <p class="sub">支持 Booking.com 与 Airbnb，点击下方按钮跳转预订。</p>
+  </section>
+
+  <!-- BEGIN: booking-buttons -->
+  <section class="reveal" id="booking-buttons">
+    <h3 style="margin-top:18px;">立即预订</h3>
+    <div class="btn-row booking">
+      <a class="btn-booking" href="https://www.booking.com/Share-1orvET" target="_blank" rel="noopener">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h10.5a3.5 3.5 0 0 1 0 7H9v3h8a4 4 0 1 1 0 8H5V3zm4 5h6.5a1.5 1.5 0 0 0 0-3H9v3zm0 9h8a2 2 0 1 0 0-4H9v4z"/></svg>
+        通过 Booking.com 预订
+      </a>
+      <a class="btn-airbnb" href="https://airbnb.cn/h/cmsummer1" target="_blank" rel="noopener">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c3.5-3.4 8-6.8 8-11.2C20 6 18 4 15.8 4c-1.7 0-3.1 1-3.8 2.4C11.3 5 9.9 4 8.2 4 6 4 4 6 4 9.8 4 14.2 8.5 17.6 12 21z"/></svg>
+        在 Airbnb 预订（cmsummer1）
+      </a>
+      <a class="btn-airbnb" href="https://airbnb.cn/h/chiangmaisummer" target="_blank" rel="noopener">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c3.5-3.4 8-6.8 8-11.2C20 6 18 4 15.8 4c-1.7 0-3.1 1-3.8 2.4C11.3 5 9.9 4 8.2 4 6 4 4 6 4 9.8 4 14.2 8.5 17.6 12 21z"/></svg>
+        在 Airbnb 预订（chiangmaisummer）
+      </a>
+      <a class="btn-airbnb" href="https://airbnb.cn/h/cmsummer" target="_blank" rel="noopener">
+        <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c3.5-3.4 8-6.8 8-11.2C20 6 18 4 15.8 4c-1.7 0-3.1 1-3.8 2.4C11.3 5 9.9 4 8.2 4 6 4 4 6 4 9.8 4 14.2 8.5 17.6 12 21z"/></svg>
+        在 Airbnb 预订（cmsummer）
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container">&copy; 2025 清迈夏天</div></footer>
+
+<script src="analytics-config.js"></script>
+<script src="qrcode.min.js"></script>
+<script src="app.js"></script>
+<div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

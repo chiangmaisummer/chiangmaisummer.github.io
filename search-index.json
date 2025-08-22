@@ -1,12 +1,74 @@
 [
-  {"title":"Home","url":"index.html","lang":"en","desc":"Chiang Mai Summer — stay in the heart of the Old City. Map, Contact, WhatsApp."},
-  {"title":"首页","url":"index-zh.html","lang":"zh","desc":"清迈夏天 — 古城中心。地图、联系、WhatsApp。"},
-  {"title":"About","url":"about.html","lang":"en","desc":"About Chiang Mai Summer — cozy stay near Wat Phra Singh."},
-  {"title":"关于","url":"about-zh.html","lang":"zh","desc":"关于清迈夏天，近帕辛寺的温馨住宿。"},
-  {"title":"Blog","url":"blog.html","lang":"en","desc":"Notes and updates around Chiang Mai Old City."},
-  {"title":"博客","url":"blog-zh.html","lang":"zh","desc":"关于清迈古城的点滴与更新。"},
-  {"title":"Contact","url":"contact.html","lang":"en","desc":"Email, WhatsApp/Line, address, map, taxi notes, vCard."},
-  {"title":"联系","url":"contact-zh.html","lang":"zh","desc":"邮箱、WhatsApp/Line、地址、地图、打车备注、vCard。"},
-  {"title":"QR Codes","url":"qr.html","lang":"en","desc":"QR for Map and vCard (toggle)."},
-  {"title":"二维码","url":"qr-zh.html","lang":"zh","desc":"地图短链与 vCard 二维码切换。"}
+  {
+    "title": "Home",
+    "url": "index.html",
+    "lang": "en",
+    "desc": "Chiang Mai Summer — stay in the heart of the Old City. Map, Contact, WhatsApp."
+  },
+  {
+    "title": "首页",
+    "url": "index-zh.html",
+    "lang": "zh",
+    "desc": "清迈夏天 — 古城中心。地图、联系、WhatsApp。"
+  },
+  {
+    "title": "About",
+    "url": "about.html",
+    "lang": "en",
+    "desc": "About Chiang Mai Summer — cozy stay near Wat Phra Singh."
+  },
+  {
+    "title": "关于",
+    "url": "about-zh.html",
+    "lang": "zh",
+    "desc": "关于清迈夏天，近帕辛寺的温馨住宿。"
+  },
+  {
+    "title": "Blog",
+    "url": "blog.html",
+    "lang": "en",
+    "desc": "Notes and updates around Chiang Mai Old City."
+  },
+  {
+    "title": "博客",
+    "url": "blog-zh.html",
+    "lang": "zh",
+    "desc": "关于清迈古城的点滴与更新。"
+  },
+  {
+    "title": "Contact",
+    "url": "contact.html",
+    "lang": "en",
+    "desc": "Email, WhatsApp/Line, address, map, taxi notes, vCard."
+  },
+  {
+    "title": "联系",
+    "url": "contact-zh.html",
+    "lang": "zh",
+    "desc": "邮箱、WhatsApp/Line、地址、地图、打车备注、vCard。"
+  },
+  {
+    "title": "QR Codes",
+    "url": "qr.html",
+    "lang": "en",
+    "desc": "QR for Map and vCard (toggle)."
+  },
+  {
+    "title": "二维码",
+    "url": "qr-zh.html",
+    "lang": "zh",
+    "desc": "地图短链与 vCard 二维码切换。"
+  },
+  {
+    "title": "Booking",
+    "url": "booking.html",
+    "lang": "en",
+    "desc": "Rooms & rates, FAQ, and platform links."
+  },
+  {
+    "title": "预订",
+    "url": "booking-zh.html",
+    "lang": "zh",
+    "desc": "房型与价格、常见问题与预订入口。"
+  }
 ]
